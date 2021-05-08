@@ -104,6 +104,9 @@ if [[ "$IN_PLACE_DEPLOYMENT" -ne "1" ]]; then
   exitWithMessageOnError "Kudu Sync failed"
 fi
 
+# 1.1 Select node version
+selectNodeVersion
+
 # 2. Install Composer modules 
 if [ -e "$DEPLOYMENT_TARGET/composer.json" ]; then
   echo Running composer install
@@ -117,7 +120,7 @@ fi
 if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
   echo Running npm install
   cd "$DEPLOYMENT_TARGET"
-  eval npm install --production
+  eval $NPM_CMD install --production
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
 fi

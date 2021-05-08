@@ -52,8 +52,18 @@
                             </thead>
                             <tbody>
                                 @foreach ($tasks as $task)
-                                    <tr>
-                                        <td class="table-text"><div>{{ $task->name }}</div></td>
+                                    <tr class="{{ $task->complete ? 'success' : 'active' }}" >
+                                        <td>
+                                            <form action="{{ url('task/'.$task->id) }}" method="POST">
+                                                {{ csrf_field() }}
+
+                                                <button type="submit" class="btn btn-xs">
+                                                    <i class="fa {{$task->complete ? 'fa-check-square-o' : 'fa-square-o'}}"></i>
+                                                </button>
+                                                {{ $task->name }}
+                                            </form>
+                                        </td>
+
 
                                         <!-- Task Delete Button -->
                                         <td>

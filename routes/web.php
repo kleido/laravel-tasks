@@ -48,6 +48,19 @@ Route::post('/task', function (Request $request) {
 });
 
 /**
+ * Update task
+ */
+Route::post('/task/{id}', function ($id) {
+    error_log('INFO: post /task/'.$id);
+    $task = Task::findOrFail($id);
+
+    $task->complete = !$task->complete;
+    $task->save();
+
+    return redirect('/');
+});
+
+/**
     * Delete Task
     */
 Route::delete('/task/{id}', function ($id) {
